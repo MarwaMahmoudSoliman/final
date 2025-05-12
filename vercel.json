@@ -1,11 +1,13 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" },
-    { "src": "public/**", "use": "@vercel/static" }
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "frontend/angular.json", "use": "@vercel/static-build" }
   ],
   "routes": [
-    { "src": "/api/create-checkout-session", "dest": "/api/create-checkout-session.js" },
-    { "src": "/api/check-payment", "dest": "/api/check-payment.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ]
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/frontend/dist/bookstore-app/$1" }
+  ],
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist/bookstore-app"
+}
